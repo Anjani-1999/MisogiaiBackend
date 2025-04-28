@@ -35,6 +35,8 @@ public interface VideoService {
     Object getAllVideosBySubCategory(String subCategory);
 
     UploadVideoResponse likeVideo(@Valid UploadVideRequest uploadVideRequest);
+    UploadVideoResponse dislikeVideo(@Valid UploadVideRequest uploadVideRequest);
+
 
     UploadVideoResponse commentVideo(@Valid CommentRequest commentRequest);
 
@@ -47,4 +49,5 @@ public interface VideoService {
     CommentResponse getCommentsByVideoId(Long videoId);
 
     Object deleteVideo(Long videoId);
+
 }

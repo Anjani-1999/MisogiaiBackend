@@ -25,14 +25,16 @@ public class VideoServiceImpl implements VideoService {
     private final VideoDaoService videoDaoService;
     private final GlobalMapper globalMapper;
     private final LikeDaoService likeDaoService;
+    private final DisLikeDaoService disLikeDaoService;
     private final ViewDaoService viewDaoService;
     private final TagDaoService tagDaoService;
     private final CommentDaoService commentDaoService;
 
-    public VideoServiceImpl(VideoDaoService videoDaoService, GlobalMapper globalMapper, LikeDaoService likeDaoService, ViewDaoService viewDaoService, TagDaoService tagDaoService, CommentDaoService commentDaoService) {
+    public VideoServiceImpl(VideoDaoService videoDaoService, GlobalMapper globalMapper, LikeDaoService likeDaoService, DisLikeDaoService disLikeDaoService, ViewDaoService viewDaoService, TagDaoService tagDaoService, CommentDaoService commentDaoService) {
         this.videoDaoService = videoDaoService;
         this.globalMapper = globalMapper;
         this.likeDaoService = likeDaoService;
+        this.disLikeDaoService = disLikeDaoService;
         this.viewDaoService = viewDaoService;
         this.tagDaoService = tagDaoService;
         this.commentDaoService = commentDaoService;
@@ -250,6 +252,43 @@ public class VideoServiceImpl implements VideoService {
             videoDaoService.createVideo(videoEntity);
             uploadVideoResponse.setData(globalMapper.entityToDto(videoEntity, UploadVideRequest.class));
             uploadVideoResponse.setMessage("Video liked successfully");
+            uploadVideoResponse.setStatus(200);
+            return uploadVideoResponse;
+        }catch (Exception e){
+            log.error("Error while liking video: {}", e.getMessage());
+            uploadVideoResponse.setMessage(e.getMessage());
+            uploadVideoResponse.setStatus(500);
+            return uploadVideoResponse;
+        }
+    }
+
+    @Override
+    public UploadVideoResponse dislikeVideo(UploadVideRequest uploadVideRequest) {
+        UploadVideoResponse uploadVideoResponse = new UploadVideoResponse();
+
+
+        try {
+            VideoEntity videoEntity = videoDaoService.getVideoById(uploadVideRequest.getVideoId());
+            if (videoEntity == null) {
+                uploadVideoResponse.setMessage("No video found with this id");
+                uploadVideoResponse.setStatus(404);
+                return uploadVideoResponse;
+            }
+            DisLikeEntity likeEntity = disLikeDaoService.findDisLikeEntityByVideoIdAndUserId(uploadVideRequest.getVideoId(),uploadVideRequest.getUserId());
+            if (likeEntity == null) {
+                likeEntity = new DisLikeEntity();
+                likeEntity.setCreatedBy(uploadVideRequest.getUserId());
+                likeEntity.setUserId(uploadVideRequest.getUserId());
+                likeEntity.setVideoEntity(videoEntity);
+                videoEntity.getDisLikeEntities().add(likeEntity);
+                videoEntity.setDisLikes((long) videoEntity.getDisLikeEntities().size());
+            } else {
+                videoEntity.getDisLikeEntities().remove(likeEntity);
+                videoEntity.setLikes((long) videoEntity.getDisLikeEntities().size());
+            }
+            videoDaoService.createVideo(videoEntity);
+            uploadVideoResponse.setData(globalMapper.entityToDto(videoEntity, UploadVideRequest.class));
+            uploadVideoResponse.setMessage("Video disLiked successfully");
             uploadVideoResponse.setStatus(200);
             return uploadVideoResponse;
         }catch (Exception e){

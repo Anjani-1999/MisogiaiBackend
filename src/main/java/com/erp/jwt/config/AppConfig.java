@@ -18,7 +18,10 @@ public class AppConfig {
                 registry.addMapping("/**")
                         .allowedHeaders("Authorization","Content-Type", "X-Requested-With", "Accept", "Origin")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS")
-                        .allowedOrigins("https://misogiai-anjani-1999s-projects.vercel.app")
+                        .allowedOrigins(
+                                "https://misogiai-anjani-1999s-projects.vercel.app",
+                                "http://localhost:5173"
+                        )
                         .allowCredentials(true);
             }
         };

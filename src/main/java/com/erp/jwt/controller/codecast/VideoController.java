@@ -152,6 +152,17 @@ public class VideoController {
         }
     }
 
+    @PostMapping("/api/dislike/video")
+    public ResponseEntity<?> disLikeVideoHandler(@Valid @RequestBody UploadVideRequest uploadVideRequest){
+        log.info("creating task:{}",uploadVideRequest);
+        try{
+            return ResponseEntity.ok(videoService.dislikeVideo(uploadVideRequest));
+        }catch (Exception e){
+            log.error("[AuthController:registerUser] Exception while registering the user due to :"+e.getMessage());
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping("/api/tags")
     public ResponseEntity<?> getTagsHandler(){
         try{

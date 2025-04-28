@@ -35,6 +35,7 @@ public class VideoEntity extends BaseEntity {
     private List<TagEntity> tags;
 
     private Long likes;
+    private Long disLikes;
     private Long views;
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true,mappedBy = "videoEntity")
@@ -42,6 +43,9 @@ public class VideoEntity extends BaseEntity {
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true,mappedBy = "videoEntity")
     private List<LikeEntity> likeEntities = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true,mappedBy = "videoEntity")
+    private List<DisLikeEntity> disLikeEntities = new ArrayList<>();
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true,mappedBy = "videoEntity")
     private List<ViewEntity> viewEntities = new ArrayList<>();
