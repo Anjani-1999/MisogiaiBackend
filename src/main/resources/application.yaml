@@ -1,0 +1,95 @@
+date: 15-07-2024
+versionDate: 15-07-2024
+
+app:
+  security:
+    enabled: true
+  io-logging:
+    enabled: true
+  time-zone: Asia/Kolkata
+version: v1.3
+batchSize: 500
+ENV: local
+server:
+  port: 8083
+  servlet:
+    context-path: ${CONTEXT_PATH:/auth}
+spring:
+  application:
+    name: ${SPRING_APPLICATION_NAME:Authentication-Service}
+  datasource:
+    jdbcUrl: jdbc:postgresql://localhost:5432/company?currentSchema=user
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      allow-pool-suspension: true
+      connection-timeout: 30000
+      idle-timeout: 6000
+      max-lifetime: 1800
+      leak-detection-threshold: 20000
+      pool-name: SpringBootJPAHikariCP
+      maximum-pool-size: 100
+      minimum-idle: 20
+
+
+
+
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+
+logging:
+  level:
+    org.springframework.security: TRACE
+    com.zaxxer.hikari: DEBUG
+    org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration: DEBUG
+
+
+
+
+
+
+
+
+
+cors-list: >
+  https://originhighway-staging-kxyaws5ixa-uc.a.run.app
+  https://originhighway-staging-kxyaws5ixa-uc.a.run.app/
+  https://originhighway-staging-kxyaws5ixa-uc.a.run.app/proxy
+  https://originhighway-staging-kxyaws5ixa-uc.a.run.app/proxy/
+  http://localhost:3000
+  https://silver-eagles-rescue.loca.lt
+  https://silver-eagles-rescue.loca.lt/
+  http://localhost:5173/
+  http://localhost:5173
+  http://localhost:3002
+  http://localhost:3001
+  http://localhost:3000/
+  http://localhost:3002/
+  http://localhost:3001/
+  https://highway.palletnow.co
+  https://dev.plusmax.com/
+  https://dev.plusmax.com
+  https://dev-gateway.palletnow.co/
+  https://dev-gateway.palletnow.co
+  https://dev-pos.plusmax.com
+  https://dev-pos.plusmax.com/
+  https://rntnx-2406-7400-61-7cfc-3802-c66c-dca6-a93f.a.free.pinggy.link/
+  https://rntnx-2406-7400-61-7cfc-3802-c66c-dca6-a93f.a.free.pinggy.link
+
+
+
+
+
+
+
+
+
+jwt:
+  rsa-private-key: classpath:certs/privateKey.pem
+  rsa-public-key: classpath:certs/publicKey.pem
