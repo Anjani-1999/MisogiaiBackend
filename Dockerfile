@@ -17,4 +17,4 @@ COPY --from=builder /app/build/libs/*-SNAPSHOT.jar /app.jar
 
 
 # Run the web service on container startup.
-CMD ["java", "-jar", "/app.jar", "--spring.profiles.active=${SPRING_BOOT_PROFILE}"]
+CMD ["java", "-jar", "/app.jar", "--spring.profiles.active=dev"]

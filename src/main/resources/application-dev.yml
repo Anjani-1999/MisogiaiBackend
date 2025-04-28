@@ -3,8 +3,7 @@ spring:
   application:
     name: ${SPRING_APPLICATION_NAME:Order-System}
   datasource:
-      url: jdbc:postgresql://34.42.96.38:5432/user_db?currentSchema=user_schema
-      jdbcUrl: ${spring.datasource.url}
+      jdbcUrl: jdbc:postgresql://34.42.96.38:5432/user_db?currentSchema=user_schema
       username: userAdmin
       password: userAdmin
       driver-class-name: org.postgresql.Driver
@@ -16,6 +15,12 @@ spring:
       pool-name: ${DB_POOL_NAME:SpringBootJPAHikariCP}
       maximum-pool-size: ${DB_MAX_POOL_SIZE:10}
       minimum-idle: ${DB_MIN_IDLE:2}
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create
+    show-sql: false
 
 
 
