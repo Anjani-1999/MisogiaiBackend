@@ -3,9 +3,8 @@ spring:
   application:
     name: ${SPRING_APPLICATION_NAME:Order-System}
   datasource:
-    oms-ds:
-      url: jdbc:postgresql://10.47.160.3:5432/orderDb?currentSchema=orders
-      jdbcUrl: ${spring.datasource.oms-ds.url}
+      url: jdbc:postgresql://10.47.160.3:5432/user_db?currentSchema=user_schema
+      jdbcUrl: ${spring.datasource.url}
       username: userAdmin
       password: userAdmin
       driver-class-name: org.postgresql.Driver
@@ -18,73 +17,7 @@ spring:
       maximum-pool-size: ${DB_MAX_POOL_SIZE:10}
       minimum-idle: ${DB_MIN_IDLE:2}
 
-    cart-ds:
-      url: ${DATASOURCE_CART_DS_URL:jdbc:postgresql://10.47.160.3:5432/cartDb?currentSchema=cart}
-      jdbcUrl: ${DATASOURCE_CART_DS_JDBC_URL:${spring.datasource.cart-ds.url}}
-      username: orderAdmin
-      password: orderAdmin
-      driver-class-name: org.postgresql.Driver
-      allow-pool-suspension: true
-      connection-timeout: 30000
-      idle-timeout: 6000
-      max-lifetime: 1800
-      leak-detection-threshold: 20000
-      pool-name: SpringBootJPAHikariCP
-      maximum-pool-size: 100
-      minimum-idle: 20
 
-    coupon-ds:
-      url: jdbc:postgresql://10.47.160.3:5432/couponDb?currentSchema=coupon
-      jdbcUrl:  ${spring.datasource.coupon-ds.url}
-      username: orderAdmin
-      password: orderAdmin
-      driver-class-name: org.postgresql.Driver
-      allow-pool-suspension: true
-      connection-timeout: 30000
-      idle-timeout: 6000
-      max-lifetime: 30000
-      leak-detection-threshold: 2000
-      pool-name: SpringBootJPAHikariCP
-      maximum-pool-size: 2
-      minimum-idle: 2
-
-    loyalty-ds:
-      url: jdbc:postgresql://10.47.160.3:5432/loyaltyDb?currentSchema=loyalty
-      jdbcUrl: ${spring.datasource.loyalty-ds.url}
-      username: orderAdmin
-      password: orderAdmin
-      driver-class-name: org.postgresql.Driver
-      allow-pool-suspension: true
-      connection-timeout: 30000
-      idle-timeout: 6000
-      max-lifetime: 30000
-      leak-detection-threshold: 2000
-      pool-name: SpringBootJPAHikariCP
-      maximum-pool-size: 2
-      minimum-idle: 2
-
-
-    replica-oms:
-      #      url: jdbc:postgresql://34.68.91.209/${DB_NAME:orderStageDb}?currentSchema=${DB_SCHEMA:orders}
-      #      jdbcUrl: ${spring.datasource.replica-oms.url}
-      #      username: orderStageAdmin
-      #      password: orderStageAdmin@12
-      #      read-only: true
-      #      driver-class-name: org.postgresql.Driver
-      url: jdbc:postgresql://10.47.160.3:5432/orderDb?currentSchema=orders
-      #      url: jdbc:postgresql://34.68.91.209/${DB_NAME:orderStageDb}?currentSchema=${DB_SCHEMA:orders}
-      jdbcUrl: ${spring.datasource.replica-oms.url}
-      username: orderAdmin
-      password: orderAdmin
-      driver-class-name: org.postgresql.Driver
-
-
-feign:
-  client:
-    config:
-      default:
-        connectTimeout: 10000
-        readTimeout: 10000
 
 
 serviceURL:
@@ -120,6 +53,8 @@ serviceURL:
   gateway: https://origin-highway-dev-ak3ogf6zea-uc.a.run.app/proxy
 
 cors-list: >
+  https://misogiai-anjani-1999s-projects.vercel.app/
+  https://misogiai-anjani-1999s-projects.vercel.app
   https://originhighway-staging-kxyaws5ixa-uc.a.run.app
   https://dev.plusmax.com
   https://dev.plusmax.com/
