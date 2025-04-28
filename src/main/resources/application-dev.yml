@@ -3,7 +3,7 @@ spring:
   application:
     name: ${SPRING_APPLICATION_NAME:Order-System}
   datasource:
-      url: jdbc:postgresql://34.42.96.38 :5432/user_db?currentSchema=user_schema
+      url: jdbc:postgresql://34.42.96.38:5432/user_db?currentSchema=user_schema
       jdbcUrl: ${spring.datasource.url}
       username: userAdmin
       password: userAdmin
